@@ -15,14 +15,30 @@ app.use(express.json());
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("연결완료");
+    console.log("연결 완료");
   })
   .catch((err) => {
     console.log("ERROR: ", err);
   });
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Typescript + Node.js + Express Server");
+  
+
+  app.post("/", (req, res) => {
+    console.log("req.body: ", req.body); 
+    res.json(req.body);
+  });
+  
+  app.get("/", (req: Request, res: Response, next) => {
+    setImmediate(() => { next(new Error("it is an error")); });
+    // res.send("Typescript + Node.js + Express Server");
+  });
+  
+
+
+// Express 에러 처리
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.send(error.message || "Oops, something went wrong.");
 });
 
 // 정적 파일을 가져오기 위한 미들웨어
