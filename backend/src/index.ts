@@ -33,7 +33,7 @@ mongoose
     // res.send("Typescript + Node.js + Express Server");
   });
   
-
+// app.use("/users", require("./routes/users"));
 
 // Express 에러 처리
 app.use((error, req, res, next) => {
