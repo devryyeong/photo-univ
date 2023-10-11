@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 
 const mongoose = require("mongoose");
 const path = require("path");
@@ -21,22 +21,22 @@ mongoose
     console.log("ERROR: ", err);
   });
 
+app.post("/", (req: Request, res: Response) => {
+  console.log("req.body: ", req.body); 
+  res.json(req.body);
+});
   
+app.get("/", (req: Request, res: Response, next: NextFunction) => {
+  setImmediate(() => {
+    next(new Error("it is an error"));
+  });
+  // res.send("Typescript + Node.js + Express Server");
+});
 
-  app.post("/", (req, res) => {
-    console.log("req.body: ", req.body); 
-    res.json(req.body);
-  });
-  
-  app.get("/", (req: Request, res: Response, next) => {
-    setImmediate(() => { next(new Error("it is an error")); });
-    // res.send("Typescript + Node.js + Express Server");
-  });
-  
-// app.use("/users", require("./routes/users"));
+app.use("/users", require("./routes/users"));
 
 // Express 에러 처리
-app.use((error, req, res, next) => {
+app.use((error: any, res: Response) => {
   res.status(error.status || 500);
   res.send(error.message || "Oops, something went wrong.");
 });
