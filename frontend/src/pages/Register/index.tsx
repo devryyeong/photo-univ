@@ -1,5 +1,7 @@
 import React from 'react'
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../store/thunkFunctions";
 
 interface RegisterInputProps {
   name: string;
@@ -11,13 +13,22 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
     reset
   } = useForm<RegisterInputProps>();
 
+  const dispatch = useDispatch();
+  
   const onSubmit: SubmitHandler<RegisterInputProps> = ({ name, email, password }: RegisterInputProps) => {
-    console.log("data:", name, email, password);
+    const body = {
+      name,
+      email,
+      password,
+      image: `https://via.placeholder.com/600x400?text=no+user+image`
+    };
+
+    dispatch(registerUser(body))
+    // console.log("data:", name, email, password);
     reset();
   };
 
