@@ -2,9 +2,9 @@ import React from 'react'
 import { SubmitHandler, useForm } from "react-hook-form";
 
 interface RegisterInputProps {
+  name: string;
   email: string;
   password: string;
-  name: string;
 }
 
 const Register = () => {
@@ -16,8 +16,8 @@ const Register = () => {
     reset
   } = useForm<RegisterInputProps>();
 
-  const onSubmit: SubmitHandler<RegisterInputProps> = ({ email, password, name }: RegisterInputProps) => {
-    console.log("email", email);
+  const onSubmit: SubmitHandler<RegisterInputProps> = ({ name, email, password }: RegisterInputProps) => {
+    console.log("data:", name, email, password);
     reset();
   };
 
@@ -53,7 +53,7 @@ const Register = () => {
               type="text"
               id="name"
               className="w-full px-4 py-2 mt-2 bg-white border rounded-md"
-              {...(register("name", userName), { required: true })}
+              {...(register("name", userName))}
             />
             {errors?.name && (
               <div>
