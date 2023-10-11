@@ -53,11 +53,13 @@ const Register = () => {
               type="text"
               id="name"
               className="w-full px-4 py-2 mt-2 bg-white border rounded-md"
-              {...register("name", userName)}
+              {...(register("name", userName), { required: true })}
             />
             {errors?.name && (
               <div>
-                <span className="text-red-500">{errors.name.message}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.name.message}
+                </span>
               </div>
             )}
           </div>
@@ -76,7 +78,9 @@ const Register = () => {
             />
             {errors?.email && (
               <div>
-                <span className="text-red-500">{errors.email.message}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.email.message}
+                </span>
               </div>
             )}
           </div>
@@ -95,7 +99,9 @@ const Register = () => {
             />
             {errors?.password && (
               <div>
-                <span className="text-red-500">{errors.password.message}</span>
+                <span className="text-red-500 text-sm">
+                  {errors.password.message}
+                </span>
               </div>
             )}
           </div>
