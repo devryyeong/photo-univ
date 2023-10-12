@@ -11,8 +11,24 @@ export const registerUser = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      console.log(error);
+      console.log("register error: ", error);
       return thunkAPI.rejectWithValue(error.response.data || error.message);
+    }
+  }
+);
+
+export const loginUser = createAsyncThunk(
+  "user/loginUser",
+  async (body, thunKAPI) => {
+    try {
+      const response = await axiosInstance.post(
+        `/users/login`, body
+      )
+
+      return response.data;
+    } catch (error) {
+      console.log("login error", error);
+      return thunKAPI.rejectWithValue(error.response.data || error.message);
     }
   }
 );
