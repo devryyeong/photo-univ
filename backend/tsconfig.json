@@ -13,7 +13,8 @@
     "rootDir": "./src",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "noImplicitThis": false,
   },
   "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts"]
 }

@@ -21,10 +21,6 @@ mongoose
     console.log("ERROR: ", err);
   });
 
-app.post("/", (req: Request, res: Response) => {
-  console.log("req.body: ", req.body); 
-  res.json(req.body);
-});
   
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
   setImmediate(() => {
@@ -32,11 +28,16 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
   });
   // res.send("Typescript + Node.js + Express Server");
 });
+  
+app.post("/", (req: Request, res: Response) => {
+  console.log("req.body: ", req.body); 
+  res.json(req.body);
+});
 
 app.use("/users", require("./routes/users"));
 
 // Express 에러 처리
-app.use((error: any, res: Response) => {
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   res.status(error.status || 500);
   res.send(error.message || "Oops, something went wrong.");
 });
